@@ -6,10 +6,35 @@
 Answer *get_indices_of_item_weights(int *weights, int length, int limit)
 {
   HashTable *ht = create_hash_table(16);
+  Answer *answer = malloc(sizeof(Answer));
+  answer->index_1 = -1;
+  answer->index_2 = -1;
+ 
+  for(int i = 0; i < length; i++) {
+    hash_table_insert(ht, weights[i], i); /* populate the hash table with weight values */
+  }
 
-  // YOUR CODE HERE
-  /* initial commit */
-  return NULL;
+  /* there is probably a more efficient way to do this */
+  for(int i = 0; i < length; i++) {
+    if(hash_table_retrieve(ht, limit - weights[i]) != -1) {
+      if(answer->index_2 == -1) {
+        answer->index_2 = i;
+        /* as long as the limit - indexed weight is non-negative, index 2 can be set to this */
+      }
+      else {
+        /* if answer->index_1 is still -1, it is set instead of answer->index_2 */
+        answer->index_1 = i;
+      }
+    }
+  }
+
+  destroy_hash_table(ht);
+
+  if(answer->index_1 == -1) {
+    return NULL; /* if index_1 has not been changed, i.e. if no weight sum conditions are met, return NULL */
+  }
+
+  return answer;
 }
 
 void print_answer(Answer *answer)
