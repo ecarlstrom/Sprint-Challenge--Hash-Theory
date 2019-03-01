@@ -62,16 +62,16 @@ How can you represent the SUM and CARRY of adding THREE digits with a truth tabl
 
 * A + B + C
 ```
-A     B     C      carry   sum
---------------------------------
-0     0     0        ?      ?
-0     0     1        ?      ?
-0     1     0        ?      ?
-0     1     1        ?      ?
-1     0     0        ?      ?
-1     0     1        ?      ?
-1     1     0        ?      ?
-1     1     1        ?      ?
+A     B     C      carry   sum            A xor B xor C              A && B && C
+---------------------------------------------------------------------------------
+0     0     0        0      0                   0                         0
+0     0     1        0      1                   1                         0
+0     1     0        0      1                   1                         0
+0     1     1        0      0                   0                         0
+1     0     0        0      1                   1                         0
+1     0     1        0      0                   0                         0
+1     1     0        0      0                   0                         0
+1     1     1        1      0                   0                         1
 ```
-* SUM = ?
-* CARRY = ?
+* SUM = A xor B xor C
+* CARRY = A && B && C
